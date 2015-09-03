@@ -2,7 +2,9 @@
   "name": "react-simple-typeahead",
   "version": "0.0.1",
   "description": "A simple React input-based typeahead component",
+  "main": "modules/typeahead.js",
   "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -10,12 +12,12 @@
   "peerDependencies": {
     "react": "^0.13.3"
   },
-  "dependencies": {
+  "devDependencies": {
+    "babel": "^5.8.23",
     "babel-core": "^5.8.23",
-    "babel-loader": "^5.3.2",
-    "css-loader": "^0.16.0",
-    "jsx-loader": "^0.13.2",
-    "style-loader": "^0.12.3",
+    "babel-loader": "^5.3.2"
+  },
+  "dependencies": {
     "classnames": "^2.1.3"
   }
 }

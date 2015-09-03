@@ -1,20 +1,17 @@
 .typeahead {
+  width: 300px;
   position: relative;
 }
 
 .typeaheadInput {
+  width: 100%;
   position: relative;
   z-index: 2;
-  margin-bottom: 3px;
+  margin-bottom: 3px !important;
 }
 
 .typeaheadResults {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  box-shadow: inset 0 1px 3px rhba(#000, 0.06);
-  box-sizing: border-box;
-
+  list-style: none;
   position: relative;
   width: 95%;
   margin: -15px auto 0 auto;
@@ -26,7 +23,7 @@
 }
 
 .typeaheadResultFocused {
-  background-color: red;
+  background-color: #2196F3;
   color: #FFF;
 }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import cls from 'classnames';
 import KeyEvent from './keyevent';
-import defaultStyles from './typeahead-default.css';
 
 class Typeahead extends React.Component {
   constructor(props) {
@@ -180,7 +179,7 @@ Typeahead.defaultProps = {
   onBlur: () => {},
   onFocus: () => {},
   onInputChange: () => {},
-  styles: defaultStyles
+  styles: {}
 }
 
 Typeahead.propTypes = {
