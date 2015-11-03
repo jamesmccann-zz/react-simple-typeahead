@@ -57,9 +57,15 @@ var Typeahead = (function (_React$Component) {
   _createClass(Typeahead, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.defaultValue != this.props.defaultValue) {
+        var newValue = nextProps.defaultValue;
+      } else {
+        var newValue = this.state.value || nextProps.defaultValue;
+      }
+
       this.setState({
         filteredOptions: nextProps.options || this.state.filteredOptions,
-        value: nextProps.defaultValue || this.state.value
+        value: newValue
       });
     }
   }, {
@@ -108,7 +114,7 @@ var Typeahead = (function (_React$Component) {
       });
 
       var showResultsList = filteredOptions.length > 0 && !!value;
-      var selectedIndex = showResultsList ? this.state.selectedIndex : null;
+      var selectedIndex = showResultsList ? this.state.selectedIndex : undefined;
 
       this.setState({
         filteredOptions: filteredOptions,
