@@ -162,7 +162,7 @@ var Typeahead = (function (_React$Component) {
     value: function _setOptionSelected() {
       var _this2 = this;
 
-      if (this.state.selectedIndex) {
+      if (Number.isInteger(this.state.selectedIndex)) {
         var opt = this.state.filteredOptions[this.state.selectedIndex];
       } else {
         var opt = this.props.options.filter(function (opt) {

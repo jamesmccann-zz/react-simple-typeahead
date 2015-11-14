@@ -118,7 +118,7 @@ class Typeahead extends React.Component {
   }
 
   _setOptionSelected() {
-    if (this.state.selectedIndex) {
+    if (Number.isInteger(this.state.selectedIndex)) {
       var opt = this.state.filteredOptions[this.state.selectedIndex]
     } else {
       var opt = this.props.options.filter((opt) => {
