@@ -72,7 +72,9 @@ class Typeahead extends React.Component {
     let value = evt.target.value
 
     let filteredOptions = this.props.options.filter((opt) => {
-      return opt.toLowerCase().includes(value.toLowerCase())
+      return this.props.optionNameMap(opt)
+                       .toLowerCase()
+                       .includes(value.toLowerCase())
     })
 
     let showResultsList = filteredOptions.length > 0 && !!value
@@ -122,16 +124,21 @@ class Typeahead extends React.Component {
       var opt = this.state.filteredOptions[this.state.selectedIndex]
     } else {
       var opt = this.props.options.filter((opt) => {
-        return opt.toLowerCase().includes(this.state.value.toLowerCase())
+        return this.props.optionNameMap(opt)
+                         .toLowerCase()
+                         .includes(this.state.value.toLowerCase())
       }).pop()
     }
 
+    let name = this.props.optionNameMap(opt)
+    let val = this.props.optionValueMap(opt)
+
     this.setState({
-      value: opt,
+      value: name,
       resultsListVisible: false,
       selectedIndex: undefined
     }, () => {
-      this.props.onOptionSelected(opt)
+      this.props.onOptionSelected(val)
     })
   }
 
@@ -157,7 +164,7 @@ class Typeahead extends React.Component {
             onClick={this.handleOptionClick}
             onMouseOver={(e) => { this.handleOptionMouseOver(i) }}
             ref={`option-${i}`}>
-            {opt}
+            {this.props.optionNameMap(opt)}
         </li>
       )
     })
@@ -185,12 +192,21 @@ Typeahead.defaultProps = {
   onBlur: () => {},
   onFocus: () => {},
   onInputChange: () => {},
-  styles: {}
+  styles: {},
+  optionNameMap: opt => opt,
+  optionValueMap: opt => opt
 }
 
 Typeahead.propTypes = {
   defaultValue: React.PropTypes.string,
-  options: React.PropTypes.arrayOf(React.PropTypes.string),
+  options: React.PropTypes.arrayOf(
+    React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.object
+    ])
+  ),
+  optionNameMap: React.PropTypes.func,
+  optionValueMap: React.PropTypes.func,
 
   onOptionSelected: React.PropTypes.func,
   onBlur: React.PropTypes.func,

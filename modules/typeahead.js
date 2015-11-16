@@ -110,7 +110,7 @@ var Typeahead = (function (_React$Component) {
       var value = evt.target.value;
 
       var filteredOptions = this.props.options.filter(function (opt) {
-        return opt.toLowerCase().includes(value.toLowerCase());
+        return _this.props.optionNameMap(opt).toLowerCase().includes(value.toLowerCase());
       });
 
       var showResultsList = filteredOptions.length > 0 && !!value;
@@ -166,16 +166,19 @@ var Typeahead = (function (_React$Component) {
         var opt = this.state.filteredOptions[this.state.selectedIndex];
       } else {
         var opt = this.props.options.filter(function (opt) {
-          return opt.toLowerCase().includes(_this2.state.value.toLowerCase());
+          return _this2.props.optionNameMap(opt).toLowerCase().includes(_this2.state.value.toLowerCase());
         }).pop();
       }
 
+      var name = this.props.optionNameMap(opt);
+      var val = this.props.optionValueMap(opt);
+
       this.setState({
-        value: opt,
+        value: name,
         resultsListVisible: false,
         selectedIndex: undefined
       }, function () {
-        _this2.props.onOptionSelected(opt);
+        _this2.props.onOptionSelected(val);
       });
     }
   }, {
@@ -204,7 +207,7 @@ var Typeahead = (function (_React$Component) {
               _this3.handleOptionMouseOver(i);
             },
             ref: 'option-' + i },
-          opt
+          _this3.props.optionNameMap(opt)
         );
       });
 
@@ -238,12 +241,20 @@ Typeahead.defaultProps = {
   onBlur: function onBlur() {},
   onFocus: function onFocus() {},
   onInputChange: function onInputChange() {},
-  styles: {}
+  styles: {},
+  optionNameMap: function optionNameMap(opt) {
+    return opt;
+  },
+  optionValueMap: function optionValueMap(opt) {
+    return opt;
+  }
 };
 
 Typeahead.propTypes = {
   defaultValue: _react2['default'].PropTypes.string,
-  options: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.string),
+  options: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.object])),
+  optionNameMap: _react2['default'].PropTypes.func,
+  optionValueMap: _react2['default'].PropTypes.func,
 
   onOptionSelected: _react2['default'].PropTypes.func,
   onBlur: _react2['default'].PropTypes.func,
